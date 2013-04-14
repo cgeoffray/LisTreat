@@ -1,0 +1,351 @@
+<?php
+
+use Symfony\Component\Routing\Exception\MethodNotAllowedException;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Symfony\Component\Routing\RequestContext;
+
+/**
+ * appprodUrlMatcher
+ *
+ * This class has been auto-generated
+ * by the Symfony Routing Component.
+ */
+class appprodUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\RedirectableUrlMatcher
+{
+    /**
+     * Constructor.
+     */
+    public function __construct(RequestContext $context)
+    {
+        $this->context = $context;
+    }
+
+    public function match($pathinfo)
+    {
+        $allow = array();
+        $pathinfo = rawurldecode($pathinfo);
+
+        // homepage
+        if (rtrim($pathinfo, '/') === '') {
+            if (substr($pathinfo, -1) !== '/') {
+                return $this->redirect($pathinfo.'/', 'homepage');
+            }
+
+            return array (  '_controller' => 'Listreat\\MainBundle\\Controller\\HomeController::indexAction',  '_route' => 'homepage',);
+        }
+
+        // profil
+        if (0 === strpos($pathinfo, '/profil') && preg_match('#^/profil/(?P<id>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Listreat\\MainBundle\\Controller\\ProfilController::indexAction',)), array('_route' => 'profil'));
+        }
+
+        // profil_update
+        if ($pathinfo === '/profil_update') {
+            return array (  '_controller' => 'Listreat\\MainBundle\\Controller\\ProfilController::updateAction',  '_route' => 'profil_update',);
+        }
+
+        // listreat_api_shop_list
+        if ($pathinfo === '/api/shops') {
+            return array (  '_controller' => 'Listreat\\ApiBundle\\Controller\\ShopController::listAction',  '_route' => 'listreat_api_shop_list',);
+        }
+
+        // listreat_api_shop_get
+        if (0 === strpos($pathinfo, '/api/shops') && preg_match('#^/api/shops/(?P<id>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Listreat\\ApiBundle\\Controller\\ShopController::getAction',)), array('_route' => 'listreat_api_shop_get'));
+        }
+
+        // listreat_api_shop_new
+        if ($pathinfo === '/api/shops/new') {
+            return array (  '_controller' => 'Listreat\\ApiBundle\\Controller\\ShopController::newAction',  '_route' => 'listreat_api_shop_new',);
+        }
+
+        // listreat_api_user_list
+        if ($pathinfo === '/api/users') {
+            return array (  '_controller' => 'Listreat\\ApiBundle\\Controller\\UserController::listAction',  '_route' => 'listreat_api_user_list',);
+        }
+
+        // listreat_api_user_get
+        if (0 === strpos($pathinfo, '/api/users') && preg_match('#^/api/users/(?P<id>[^/]+)$#s', $pathinfo, $matches)) {
+            return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Listreat\\ApiBundle\\Controller\\UserController::getAction',)), array('_route' => 'listreat_api_user_get'));
+        }
+
+        // fos_user_security_login
+        if ($pathinfo === '/login') {
+            return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::loginAction',  '_route' => 'fos_user_security_login',);
+        }
+
+        // fos_user_security_check
+        if ($pathinfo === '/login_check') {
+            return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::checkAction',  '_route' => 'fos_user_security_check',);
+        }
+
+        // fos_user_security_logout
+        if ($pathinfo === '/logout') {
+            return array (  '_controller' => 'FOS\\UserBundle\\Controller\\SecurityController::logoutAction',  '_route' => 'fos_user_security_logout',);
+        }
+
+        if (0 === strpos($pathinfo, '/profile')) {
+            // fos_user_profile_show
+            if (rtrim($pathinfo, '/') === '/profile') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_profile_show;
+                }
+
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'fos_user_profile_show');
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ProfileController::showAction',  '_route' => 'fos_user_profile_show',);
+            }
+            not_fos_user_profile_show:
+
+            // fos_user_profile_edit
+            if ($pathinfo === '/profile/edit') {
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ProfileController::editAction',  '_route' => 'fos_user_profile_edit',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/register')) {
+            // fos_user_registration_register
+            if (rtrim($pathinfo, '/') === '/register') {
+                if (substr($pathinfo, -1) !== '/') {
+                    return $this->redirect($pathinfo.'/', 'fos_user_registration_register');
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\RegistrationController::registerAction',  '_route' => 'fos_user_registration_register',);
+            }
+
+            // fos_user_registration_check_email
+            if ($pathinfo === '/register/check-email') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_registration_check_email;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\RegistrationController::checkEmailAction',  '_route' => 'fos_user_registration_check_email',);
+            }
+            not_fos_user_registration_check_email:
+
+            // fos_user_registration_confirm
+            if (0 === strpos($pathinfo, '/register/confirm') && preg_match('#^/register/confirm/(?P<token>[^/]+)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_registration_confirm;
+                }
+
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'FOS\\UserBundle\\Controller\\RegistrationController::confirmAction',)), array('_route' => 'fos_user_registration_confirm'));
+            }
+            not_fos_user_registration_confirm:
+
+            // fos_user_registration_confirmed
+            if ($pathinfo === '/register/confirmed') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_registration_confirmed;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\RegistrationController::confirmedAction',  '_route' => 'fos_user_registration_confirmed',);
+            }
+            not_fos_user_registration_confirmed:
+
+        }
+
+        if (0 === strpos($pathinfo, '/resetting')) {
+            // fos_user_resetting_request
+            if ($pathinfo === '/resetting/request') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_resetting_request;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ResettingController::requestAction',  '_route' => 'fos_user_resetting_request',);
+            }
+            not_fos_user_resetting_request:
+
+            // fos_user_resetting_send_email
+            if ($pathinfo === '/resetting/send-email') {
+                if ($this->context->getMethod() != 'POST') {
+                    $allow[] = 'POST';
+                    goto not_fos_user_resetting_send_email;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ResettingController::sendEmailAction',  '_route' => 'fos_user_resetting_send_email',);
+            }
+            not_fos_user_resetting_send_email:
+
+            // fos_user_resetting_check_email
+            if ($pathinfo === '/resetting/check-email') {
+                if (!in_array($this->context->getMethod(), array('GET', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'HEAD'));
+                    goto not_fos_user_resetting_check_email;
+                }
+
+                return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ResettingController::checkEmailAction',  '_route' => 'fos_user_resetting_check_email',);
+            }
+            not_fos_user_resetting_check_email:
+
+            // fos_user_resetting_reset
+            if (0 === strpos($pathinfo, '/resetting/reset') && preg_match('#^/resetting/reset/(?P<token>[^/]+)$#s', $pathinfo, $matches)) {
+                if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                    $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                    goto not_fos_user_resetting_reset;
+                }
+
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'FOS\\UserBundle\\Controller\\ResettingController::resetAction',)), array('_route' => 'fos_user_resetting_reset'));
+            }
+            not_fos_user_resetting_reset:
+
+        }
+
+        // fos_user_change_password
+        if ($pathinfo === '/change-password/change-password') {
+            if (!in_array($this->context->getMethod(), array('GET', 'POST', 'HEAD'))) {
+                $allow = array_merge($allow, array('GET', 'POST', 'HEAD'));
+                goto not_fos_user_change_password;
+            }
+
+            return array (  '_controller' => 'FOS\\UserBundle\\Controller\\ChangePasswordController::changePasswordAction',  '_route' => 'fos_user_change_password',);
+        }
+        not_fos_user_change_password:
+
+        if (0 === strpos($pathinfo, '/admin')) {
+            // sonata_admin_dashboard
+            if ($pathinfo === '/admin/dashboard') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CoreController::dashboardAction',  '_route' => 'sonata_admin_dashboard',);
+            }
+
+            // sonata_admin_retrieve_form_element
+            if ($pathinfo === '/admin/core/get-form-field-element') {
+                return array (  '_controller' => 'sonata.admin.controller.admin:retrieveFormFieldElementAction',  '_route' => 'sonata_admin_retrieve_form_element',);
+            }
+
+            // sonata_admin_append_form_element
+            if ($pathinfo === '/admin/core/append-form-field-element') {
+                return array (  '_controller' => 'sonata.admin.controller.admin:appendFormFieldElementAction',  '_route' => 'sonata_admin_append_form_element',);
+            }
+
+            // sonata_admin_short_object_information
+            if ($pathinfo === '/admin/core/get-short-object-description') {
+                return array (  '_controller' => 'sonata.admin.controller.admin:getShortObjectDescriptionAction',  '_route' => 'sonata_admin_short_object_information',);
+            }
+
+            // sonata_admin_set_object_field_value
+            if ($pathinfo === '/admin/core/set-object-field-value') {
+                return array (  '_controller' => 'sonata.admin.controller.admin:setObjectFieldValueAction',  '_route' => 'sonata_admin_set_object_field_value',);
+            }
+
+        }
+
+        if (0 === strpos($pathinfo, '/admin')) {
+            // admin_listreat_user_user_list
+            if ($pathinfo === '/admin/listreat/user/user/list') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::listAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_list',  '_route' => 'admin_listreat_user_user_list',);
+            }
+
+            // admin_listreat_user_user_create
+            if ($pathinfo === '/admin/listreat/user/user/create') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::createAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_create',  '_route' => 'admin_listreat_user_user_create',);
+            }
+
+            // admin_listreat_user_user_batch
+            if ($pathinfo === '/admin/listreat/user/user/batch') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::batchAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_batch',  '_route' => 'admin_listreat_user_user_batch',);
+            }
+
+            // admin_listreat_user_user_edit
+            if (0 === strpos($pathinfo, '/admin/listreat/user/user') && preg_match('#^/admin/listreat/user/user/(?P<id>[^/]+)/edit$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::editAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_edit',)), array('_route' => 'admin_listreat_user_user_edit'));
+            }
+
+            // admin_listreat_user_user_delete
+            if (0 === strpos($pathinfo, '/admin/listreat/user/user') && preg_match('#^/admin/listreat/user/user/(?P<id>[^/]+)/delete$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::deleteAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_delete',)), array('_route' => 'admin_listreat_user_user_delete'));
+            }
+
+            // admin_listreat_user_user_show
+            if (0 === strpos($pathinfo, '/admin/listreat/user/user') && preg_match('#^/admin/listreat/user/user/(?P<id>[^/]+)/show$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::showAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_show',)), array('_route' => 'admin_listreat_user_user_show'));
+            }
+
+            // admin_listreat_user_user_export
+            if ($pathinfo === '/admin/listreat/user/user/export') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::exportAction',  '_sonata_admin' => 'sonata.admin.user',  '_sonata_name' => 'admin_listreat_user_user_export',  '_route' => 'admin_listreat_user_user_export',);
+            }
+
+            // admin_listreat_main_shop_list
+            if ($pathinfo === '/admin/listreat/main/shop/list') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::listAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_list',  '_route' => 'admin_listreat_main_shop_list',);
+            }
+
+            // admin_listreat_main_shop_create
+            if ($pathinfo === '/admin/listreat/main/shop/create') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::createAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_create',  '_route' => 'admin_listreat_main_shop_create',);
+            }
+
+            // admin_listreat_main_shop_batch
+            if ($pathinfo === '/admin/listreat/main/shop/batch') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::batchAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_batch',  '_route' => 'admin_listreat_main_shop_batch',);
+            }
+
+            // admin_listreat_main_shop_edit
+            if (0 === strpos($pathinfo, '/admin/listreat/main/shop') && preg_match('#^/admin/listreat/main/shop/(?P<id>[^/]+)/edit$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::editAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_edit',)), array('_route' => 'admin_listreat_main_shop_edit'));
+            }
+
+            // admin_listreat_main_shop_delete
+            if (0 === strpos($pathinfo, '/admin/listreat/main/shop') && preg_match('#^/admin/listreat/main/shop/(?P<id>[^/]+)/delete$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::deleteAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_delete',)), array('_route' => 'admin_listreat_main_shop_delete'));
+            }
+
+            // admin_listreat_main_shop_show
+            if (0 === strpos($pathinfo, '/admin/listreat/main/shop') && preg_match('#^/admin/listreat/main/shop/(?P<id>[^/]+)/show$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::showAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_show',)), array('_route' => 'admin_listreat_main_shop_show'));
+            }
+
+            // admin_listreat_main_shop_export
+            if ($pathinfo === '/admin/listreat/main/shop/export') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::exportAction',  '_sonata_admin' => 'sonata.admin.shop',  '_sonata_name' => 'admin_listreat_main_shop_export',  '_route' => 'admin_listreat_main_shop_export',);
+            }
+
+            // admin_listreat_main_item_list
+            if ($pathinfo === '/admin/listreat/main/item/list') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::listAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_list',  '_route' => 'admin_listreat_main_item_list',);
+            }
+
+            // admin_listreat_main_item_create
+            if ($pathinfo === '/admin/listreat/main/item/create') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::createAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_create',  '_route' => 'admin_listreat_main_item_create',);
+            }
+
+            // admin_listreat_main_item_batch
+            if ($pathinfo === '/admin/listreat/main/item/batch') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::batchAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_batch',  '_route' => 'admin_listreat_main_item_batch',);
+            }
+
+            // admin_listreat_main_item_edit
+            if (0 === strpos($pathinfo, '/admin/listreat/main/item') && preg_match('#^/admin/listreat/main/item/(?P<id>[^/]+)/edit$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::editAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_edit',)), array('_route' => 'admin_listreat_main_item_edit'));
+            }
+
+            // admin_listreat_main_item_delete
+            if (0 === strpos($pathinfo, '/admin/listreat/main/item') && preg_match('#^/admin/listreat/main/item/(?P<id>[^/]+)/delete$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::deleteAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_delete',)), array('_route' => 'admin_listreat_main_item_delete'));
+            }
+
+            // admin_listreat_main_item_show
+            if (0 === strpos($pathinfo, '/admin/listreat/main/item') && preg_match('#^/admin/listreat/main/item/(?P<id>[^/]+)/show$#s', $pathinfo, $matches)) {
+                return array_merge($this->mergeDefaults($matches, array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::showAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_show',)), array('_route' => 'admin_listreat_main_item_show'));
+            }
+
+            // admin_listreat_main_item_export
+            if ($pathinfo === '/admin/listreat/main/item/export') {
+                return array (  '_controller' => 'Sonata\\AdminBundle\\Controller\\CRUDController::exportAction',  '_sonata_admin' => 'sonata.admin.item',  '_sonata_name' => 'admin_listreat_main_item_export',  '_route' => 'admin_listreat_main_item_export',);
+            }
+
+        }
+
+        throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
+    }
+}
